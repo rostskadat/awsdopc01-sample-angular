@@ -1,0 +1,19 @@
+version: 0.2
+env:
+  variables:
+    BUILD_CONFIGURATION: "production"
+phases:
+  install:
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install
+      - npm install -g @angular/cli
+  build:
+    commands:
+      - echo Build started on `date`
+      - ng build --configuration=${BUILD_CONFIGURATION}
+artifacts:
+  files:
+    - "**/*"
+  base-directory: "dist*"
+  discard-paths: yes
