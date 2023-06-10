@@ -9,6 +9,8 @@ phases:
       - npm install
       - npm install -g @angular/cli
       - npm install --save-dev karma-junit-reporter
+      - wget --no-verbose https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      - apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
   build:
     commands:
       - echo Build started on `date`
@@ -16,8 +18,6 @@ phases:
   post_build:
     commands:
       - echo Testing started on `date`
-      - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-      - apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
       - ng test --reporters junit --watch=false
 artifacts:
   files:
@@ -29,3 +29,7 @@ reports:
     files:
       - "reports/junit/*.xml"
     file-format: "JUNITXML"
+  coverage-reports:
+    files:
+      - "reports/coverage/*.xml"
+    file-format: "COBERTURAXML"
