@@ -8,12 +8,22 @@ phases:
       - echo Installing source NPM dependencies...
       - npm install
       - npm install -g @angular/cli
+      - npm install --save-dev karma-junit-reporter
   build:
     commands:
       - echo Build started on `date`
       - ng build --configuration=${BUILD_CONFIGURATION}
+  post_build:
+    commands:
+      - echo Testing started on `date`
+      - ng test --reporters junit --watch=false
 artifacts:
   files:
     - "**/*"
   base-directory: "dist*"
   discard-paths: yes
+reports:
+  junit-reports:
+    files:
+      - "reports/junit/*.xml"
+    file-format: "JUNITXML"
