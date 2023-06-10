@@ -10,7 +10,7 @@ phases:
       - npm install -g @angular/cli
       - npm install --save-dev karma-junit-reporter
       - wget --no-verbose https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-      - apt update && apt install -y libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
+      - apt update && apt install -y -qq libappindicator1 fonts-liberation ./google-chrome-stable_current_amd64.deb
   build:
     commands:
       - echo Build started on `date`
@@ -18,7 +18,7 @@ phases:
   post_build:
     commands:
       - echo Testing started on `date`
-      - ng test --reporters junit --watch=false
+      - ng test --reporters junit,coverage --watch=false
 artifacts:
   files:
     - "**/*"
